@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     static HashMap<String, Station> stations = new HashMap<>();
     static HashSet<Arc> arcs = new HashSet<>();
@@ -15,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(System.getProperty("user.dir"));
         String cheminFichier = "src/sections_metro_ratp.txt";
+
 
         try (BufferedReader br = new BufferedReader(new FileReader(cheminFichier))) {
             String ligne;

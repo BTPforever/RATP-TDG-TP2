@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Station {
     private String nom;
@@ -67,7 +64,7 @@ public class Station {
         return stationsArrivée;
     }
 
-    public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
+    /*public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
         int longueur = 0;
         int i = 0;
         int max = 0;
@@ -99,82 +96,6 @@ public class Station {
                     arcsDécouverts.put(arc.getStationArrivée().getNom(), arc);
                     pile.add(arc);
                     max2++;
-                    /*if (i<max) {
-                        max2++;
-                    }*/
-                }
-            }
-            for (Arc arc : pile) {
-                System.out.println(arc);
-            }
-            System.out.println();
-            System.out.println(max2);
-            System.out.println();
-            stationActuelle = pile.poll().getStationArrivée();
-            i++;
-            if (i==max) {
-                i=0;
-                longueur++;
-                //stationActuelleBase = pile.peek().getStationArrivée();
-                max = max2;
-                max2 = 0;
-            }
-            if (stationActuelle==stationArrivée) {
-                return longueur;
-            }
-            System.out.println(stationActuelle);
-            System.out.println(longueur);
-            System.out.println();
-            System.out.println(i);
-            System.out.println(max);
-            System.out.println(max2);
-            System.out.println();
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return 0;
-    }
-
-    /*public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
-        int longueur = 0;
-        int i = 0;
-        int max = 0;
-        int max2 = 0;
-        //Station stationDépart = stations.get("Maison Blanche");
-        //Station stationArrivée = stations.get("Saint Jacques");
-        //Station stationDépart = stations.get("Tolbiac");
-        //Station stationArrivée = stations.get("Dupleix");
-        //Station stationDépart = stations.get("La Defense");
-        //Station stationArrivée = stations.get("Bastille");
-        Station stationDépart = stations.get("Republique");
-        Station stationArrivée = stations.get("Nation");
-
-        Station stationActuelleBase = stationDépart;
-        Station stationActuelle = stationDépart;
-
-        HashSet<String> lignesActuelle = stationActuelle.retourneLignes();
-
-        max =1;
-
-        //pile.add(stationDépart.retourneArcs().get(0));
-
-        while (stationActuelle!=stationArrivée) {
-            System.out.println();
-            System.out.println("-----------------------");
-            System.out.println("-----------------------");
-            System.out.println();
-            //max = stationActuelleBase.retourneArcs().size();
-            for (Arc arc : stationActuelle.retourneArcs()) {
-                if (!arcsDécouverts.containsKey(arc.getStationArrivée().getNom()) && lignesActuelle.contains(arc.getIdLigne())) {
-                    arcsDécouverts.put(arc.getStationArrivée().getNom(), arc);
-                    pile.add(arc);
-                    max2++;
-                }
-                else {
-
                 }
             }
             for (Arc arc : pile) {
@@ -210,6 +131,90 @@ public class Station {
         }
         return 0;
     }*/
+
+    public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
+        int longueur = 0;
+        int i = 0;
+        int n = 0;
+        int max = 0;
+        int max2 = 0;
+        //Station stationDépart = stations.get("Maison Blanche");
+        //Station stationArrivée = stations.get("Saint Jacques");
+        //Station stationDépart = stations.get("Tolbiac");
+        //Station stationArrivée = stations.get("Dupleix");
+        //Station stationDépart = stations.get("La Defense");
+        //Station stationArrivée = stations.get("Bastille");
+        //Station stationDépart = stations.get("Republique");
+        //Station stationArrivée = stations.get("Nation");
+        Station stationDépart = stations.get("Belleville");
+        Station stationArrivée = stations.get("Jourdain");
+
+        Station stationActuelleBase = stationDépart;
+        Station stationActuelle = stationDépart;
+
+        Set<String> lignesActuelles = stationActuelle.retourneLignes();
+
+        max = 1;
+
+        //pile.add(stationDépart.retourneArcs().get(0));
+
+        while (stationActuelle!=stationArrivée) {
+            System.out.println();
+            System.out.println("-----------------------");
+            System.out.println("-----------------------");
+            System.out.println();
+            //max = stationActuelleBase.retourneArcs().size();
+            for (Arc arc : stationActuelle.retourneArcs()) {
+                if (!arcsDécouverts.containsKey(arc.getStationArrivée().getNom()) && lignesActuelles.contains(arc.getIdLigne())) {
+                    arcsDécouverts.put(arc.getStationArrivée().getNom(), arc);
+                    pile.addFirst(arc);
+                    max2++;
+                    longueur++;
+                    n++;
+                }
+                else {
+                    arcsDécouverts.put(arc.getStationArrivée().getNom(), arc);
+                    pile.add(arc);
+                    max2++;
+                    longueur-=n;
+                    n = 0;
+                    lignesActuelles.clear();
+                    lignesActuelles.addAll(pile.peek().getStationArrivée().retourneLignes());
+                }
+            }
+            for (Arc arc : pile) {
+                System.out.println(arc);
+            }
+            System.out.println();
+            System.out.println(max2);
+            System.out.println();
+            stationActuelle = pile.poll().getStationArrivée();
+            i++;
+            if (i==max) {
+                i=0;
+                longueur++;
+                //stationActuelleBase = pile.peek().getStationArrivée();
+                max = max2;
+                max2 = 0;
+            }
+            if (stationActuelle==stationArrivée) {
+                return longueur;
+            }
+            System.out.println(stationActuelle);
+            System.out.println(longueur);
+            System.out.println();
+            System.out.println(i);
+            System.out.println(max);
+            System.out.println(max2);
+            System.out.println();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return 0;
+    }
 
     @Override
     public String toString() {
