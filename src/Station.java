@@ -75,6 +75,9 @@ public class Station {
         //Station stationArrivée = stations.get("Dupleix");
         Station stationDépart = stations.get("La Defense");
         Station stationArrivée = stations.get("Bastille");
+
+
+
         //Station stationDépart = stations.get("Republique");
         //Station stationArrivée = stations.get("Nation");
 
