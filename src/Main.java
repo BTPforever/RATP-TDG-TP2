@@ -63,12 +63,23 @@ public class Main {
                     break;
                 }
                 case 2: {
-                    System.out.println("Stations de départ :");
                     s.nextLine();
-                    String stationDépart = s.nextLine();
-                    System.out.println("Stations d'arrivée :");
-                    String stationArrivée = s.nextLine();
-                    System.out.println(Station.DFS(stations, stationDépart, stationArrivée));
+                    String stationDépart = "";
+                    String stationArrivée = "";
+                    do {
+                        System.out.println("Stations de départ :");
+                        stationDépart = s.nextLine();
+                    } while (!stations.containsKey(stationDépart));
+                    do {
+                        System.out.println("Stations d'arrivée :");
+                        stationArrivée = s.nextLine();
+                    } while (!stations.containsKey(stationArrivée));
+                    if (stationDépart==stationArrivée) {
+                        System.out.println("Stations de départ et d'arrivée identiques.");
+                    }
+                    else {
+                        System.out.println(Station.DFS(stations, stationDépart, stationArrivée));
+                    }
                     break;
                 }
                 default: {
