@@ -6,7 +6,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-
 public class Main {
     static HashMap<String, Station> stations = new HashMap<>();
     static HashSet<Arc> arcs = new HashSet<>();
