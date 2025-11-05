@@ -64,7 +64,7 @@ public class Station {
         return stationsArrivée;
     }
 
-    /*public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
+    public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
         int longueur = 0;
         int i = 0;
         int max = 0;
@@ -73,10 +73,10 @@ public class Station {
         //Station stationArrivée = stations.get("Saint Jacques");
         //Station stationDépart = stations.get("Tolbiac");
         //Station stationArrivée = stations.get("Dupleix");
-        //Station stationDépart = stations.get("La Defense");
-        //Station stationArrivée = stations.get("Bastille");
-        Station stationDépart = stations.get("Republique");
-        Station stationArrivée = stations.get("Nation");
+        Station stationDépart = stations.get("La Defense");
+        Station stationArrivée = stations.get("Bastille");
+        //Station stationDépart = stations.get("Republique");
+        //Station stationArrivée = stations.get("Nation");
 
         Station stationActuelleBase = stationDépart;
         Station stationActuelle = stationDépart;
@@ -130,9 +130,9 @@ public class Station {
             }
         }
         return 0;
-    }*/
+    }
 
-    public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
+    /*public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
         int longueur = 0;
         int i = 0;
         int n = 0;
@@ -214,7 +214,7 @@ public class Station {
             }
         }
         return 0;
-    }
+    }*/
 
     @Override
     public String toString() {
