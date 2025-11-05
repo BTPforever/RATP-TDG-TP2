@@ -4,13 +4,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 
 public class Main {
     static HashMap<String, Station> stations = new HashMap<>();
     static HashSet<Arc> arcs = new HashSet<>();
-    static LinkedList<Arc> pile = new LinkedList<>();
-    static HashMap<String, Arc> arcsDécouverts = new HashMap<>();
     public static void main(String[] args) {
         System.out.println(System.getProperty("user.dir"));
         String cheminFichier = "src/sections_metro_ratp.txt";
@@ -33,36 +32,51 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int i = 0;
+
         for (Station station : stations.values()) {
             station.addArcs(arcs);
-            int p = station.getArcs();
-            i+=p;
         }
-        System.out.println(i);
 
-        System.out.println(Station.DFS(stations, pile, arcsDécouverts));
+        Scanner s = new Scanner(System.in);
+        boolean fini = false;
 
-        /*int longueur = 0;
-        Station stationDépart = stations.get("Porte de St Cloud");
-        Station stationArrivée = stations.get("Marcel Sembat");
-        //Station stationArrivée = stations.get("Michel Ange Molitor");
+        while (!fini) {
+            System.out.println("Menu principal :");
+            System.out.println();
+            System.out.println("----------------");
+            System.out.println();
+            System.out.println("Que voulez-vous faire ?");
+            System.out.println();
+            System.out.println("0. Quitter");
+            System.out.println("1. Afficher les stations");
+            System.out.println("2. Trouver le plus cours chemin entre deux stations");
 
-        Station stationActuelle = stationDépart;
-
-        while (stationActuelle!=stationArrivée) {
-            for (Arc arc : stationActuelle.retourneArcs()) {
-                arcsDécouverts.put(arc.getStationArrivée().getNom(), arc);
+            switch (s.nextInt()) {
+                case 0: {
+                    fini = true;
+                    break;
+                }
+                case 1: {
+                    System.out.println("Il y a " + stations.size() + " stations");
+                    for (Station station : stations.values()) {
+                        System.out.println(station);
+                    }
+                    break;
+                }
+                case 2: {
+                    System.out.println("Stations de départ :");
+                    s.nextLine();
+                    String stationDépart = s.nextLine();
+                    System.out.println("Stations d'arrivée :");
+                    String stationArrivée = s.nextLine();
+                    System.out.println(Station.DFS(stations, stationDépart, stationArrivée));
+                    break;
+                }
+                default: {
+                    System.out.println("Valeur entrée inconnue.");
+                    break;
+                }
             }
-            pile.addAll(stationActuelle.retourneStationsArrivée());
-            for (int j = 0 ; j<pile.size() ; j++) {
-                stationActuelle = pile.poll();
-                return longueur;
-            }
-            System.out.println(stationActuelle);
-            System.out.println(longueur);
-            longueur++;
-        }*/
-        System.out.println(stations.get("Denfert Rochereau").retourneArcs());
+        }
     }
 }

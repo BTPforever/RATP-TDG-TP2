@@ -64,7 +64,9 @@ public class Station {
         return stationsArrivée;
     }
 
-    public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
+    public static int DFS(HashMap<String, Station> stations, String stationDépart, String stationArrivée) {
+        LinkedList<Arc> pile = new LinkedList<>();
+        HashMap<String, Arc> arcsDécouverts = new HashMap<>();
         int longueur = 0;
         int i = 0;
         int max = 0;
@@ -73,22 +75,20 @@ public class Station {
         //Station stationArrivée = stations.get("Saint Jacques");
         //Station stationDépart = stations.get("Tolbiac");
         //Station stationArrivée = stations.get("Dupleix");
-        Station stationDépart = stations.get("La Defense");
-        Station stationArrivée = stations.get("Bastille");
-
-
-
+        Station départ = stations.get(stationDépart);
+        //Station départ = stations.get("La Defense");
+        Station arrivée = stations.get(stationArrivée);
+        //Station arrivée = stations.get("Bastille");
         //Station stationDépart = stations.get("Republique");
         //Station stationArrivée = stations.get("Nation");
 
-        Station stationActuelleBase = stationDépart;
-        Station stationActuelle = stationDépart;
+        Station stationActuelle = départ;
 
-        max =1;
+        max = 1;
 
         //pile.add(stationDépart.retourneArcs().get(0));
 
-        while (stationActuelle!=stationArrivée) {
+        while (stationActuelle!=arrivée) {
             System.out.println();
             System.out.println("-----------------------");
             System.out.println("-----------------------");
@@ -112,11 +112,10 @@ public class Station {
             if (i==max) {
                 i=0;
                 longueur++;
-                //stationActuelleBase = pile.peek().getStationArrivée();
                 max = max2;
                 max2 = 0;
             }
-            if (stationActuelle==stationArrivée) {
+            if (stationActuelle==arrivée) {
                 return longueur;
             }
             System.out.println(stationActuelle);
@@ -135,7 +134,9 @@ public class Station {
         return 0;
     }
 
-    /*public static int DFS(HashMap<String, Station> stations, LinkedList<Arc> pile, HashMap<String, Arc> arcsDécouverts) {
+    /*public static int DFS(HashMap<String, Station> stations, String stationDépart, String stationArrivée) {
+        LinkedList<Arc> pile = new LinkedList<>();
+        HashMap<String, Arc> arcsDécouverts = new HashMap<>();
         int longueur = 0;
         int i = 0;
         int n = 0;
@@ -149,11 +150,10 @@ public class Station {
         //Station stationArrivée = stations.get("Bastille");
         //Station stationDépart = stations.get("Republique");
         //Station stationArrivée = stations.get("Nation");
-        Station stationDépart = stations.get("Belleville");
-        Station stationArrivée = stations.get("Jourdain");
+        Station départ = stations.get(stationDépart);
+        Station arrivée = stations.get(stationArrivée);
 
-        Station stationActuelleBase = stationDépart;
-        Station stationActuelle = stationDépart;
+        Station stationActuelle = départ;
 
         Set<String> lignesActuelles = stationActuelle.retourneLignes();
 
@@ -161,7 +161,7 @@ public class Station {
 
         //pile.add(stationDépart.retourneArcs().get(0));
 
-        while (stationActuelle!=stationArrivée) {
+        while (stationActuelle!=arrivée) {
             System.out.println();
             System.out.println("-----------------------");
             System.out.println("-----------------------");
@@ -200,7 +200,7 @@ public class Station {
                 max = max2;
                 max2 = 0;
             }
-            if (stationActuelle==stationArrivée) {
+            if (stationActuelle==arrivée) {
                 return longueur;
             }
             System.out.println(stationActuelle);
@@ -221,6 +221,10 @@ public class Station {
 
     @Override
     public String toString() {
-        return "Station " + nom;
+        String s = "Station " + nom;
+        /*for (String ligne : idLignes) {
+            s += "\n\t Ligne " + ligne;
+        }*/
+        return s;
     }
 }
