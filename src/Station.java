@@ -112,8 +112,8 @@ public class Station {
             if (i==max) {
                 i=0;
                 longueur++;
-                max = max2;
-                max2 = 0;
+                max=max2;
+                max2=0;
             }
             if (stationActuelle==arrivée) {
                 return longueur;
@@ -134,7 +134,28 @@ public class Station {
         return 0;
     }
 
+    public static int DFSrécursif(HashMap<String, Station> stations, String stationDépart, String stationArrivée) {
+        LinkedList<Arc> pile = new LinkedList<>();
+        HashSet<Station> stationsDécouvertes = new HashSet<>();
+        Station départ = stations.get(stationDépart);
+        Station arrivée = stations.get(stationArrivée);
+        récursif(départ, arrivée, stationsDécouvertes);
+        return 0;
+    }
 
+    public static int récursif(Station stationActuelle, Station stationArrivée, HashSet<Station> stationsDécouvertes) {
+        System.out.println(stationActuelle);
+        stationsDécouvertes.add(stationActuelle);
+        if (stationActuelle.equals(stationArrivée)) {
+            return 7;
+        }
+        for (Station station : stationActuelle.retourneStationsArrivée()) {
+            if (!stationsDécouvertes.contains(station)) {
+                récursif(station, stationArrivée, stationsDécouvertes);
+            }
+        }
+        return 0;
+    }
 
     /*public static int DFS(HashMap<String, Station> stations, String stationDépart, String stationArrivée) {
         LinkedList<Arc> pile = new LinkedList<>();
@@ -144,6 +165,7 @@ public class Station {
         int n = 0;
         int max = 0;
         int max2 = 0;
+        boolean mLigne = false;
         //Station stationDépart = stations.get("Maison Blanche");
         //Station stationArrivée = stations.get("Saint Jacques");
         //Station stationDépart = stations.get("Tolbiac");
@@ -176,6 +198,7 @@ public class Station {
                     max2++;
                     longueur++;
                     n++;
+                    mLigne = true;
                 }
                 else {
                     arcsDécouverts.put(arc.getStationArrivée().getNom(), arc);
@@ -183,9 +206,12 @@ public class Station {
                     max2++;
                     longueur-=n;
                     n = 0;
-                    lignesActuelles.clear();
-                    lignesActuelles.addAll(pile.peek().getStationArrivée().retourneLignes());
+                    mLigne = true;
                 }
+            }
+            if (!mLigne) {
+                lignesActuelles.clear();
+                lignesActuelles.addAll(pile.peek().getStationArrivée().retourneLignes());
             }
             for (Arc arc : pile) {
                 System.out.println(arc);
@@ -194,6 +220,9 @@ public class Station {
             System.out.println(max2);
             System.out.println();
             stationActuelle = pile.poll().getStationArrivée();
+            if (stationActuelle.retourneArcs().contains()) {
+                mLigne = false;
+            }
             i++;
             if (i==max) {
                 i=0;
@@ -212,6 +241,10 @@ public class Station {
             System.out.println(max);
             System.out.println(max2);
             System.out.println();
+            System.out.println(mLigne);
+            for (String ligne : lignesActuelles) {
+                System.out.println(ligne);
+            }
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {

@@ -78,7 +78,8 @@ public class Main {
                         System.out.println("Stations de départ et d'arrivée identiques.");
                     }
                     else {
-                        System.out.println(Station.DFS(stations, stationDépart, stationArrivée));
+                        //System.out.println(Station.DFS(stations, stationDépart, stationArrivée));
+                        System.out.println(Station.DFSrécursif(stations, stationDépart, stationArrivée));
                     }
                     break;
                 }
